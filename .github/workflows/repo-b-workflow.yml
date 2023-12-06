@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: samah603/import-repo
-          token: ${{ secrets.PERSONAL_TOKEN }} # `GH_PAT` is a secret that contains your PAT
+          token: ${{ env.PERSONAL_TOKEN }} # `GH_PAT` is a secret that contains your PAT
           persist-credentials: true
           ref: ${{ github.event.client_payload.branch }}
       # - run: echo ${{ github.event.client_payload.token }}    
