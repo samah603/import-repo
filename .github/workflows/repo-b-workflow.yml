@@ -18,8 +18,11 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: exported-secrets
-          #path: .
-          run: ls -R
+          path: .
+          
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: path/to/artifact
 
       - name: Set Secrets
         run: |
