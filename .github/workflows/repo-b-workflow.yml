@@ -14,26 +14,26 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-      - name: Download Exported Secrets
-        uses: actions/download-artifact@v2
-        with:
-          name: exported-secrets
-          path: path/to/artifact
+      # - name: Download Exported Secrets
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: exported-secrets
+      #     path: path/to/artifact
           
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: path/to/artifact
+      # - name: Display structure of downloaded files
+      #   run: ls -R
+      #   working-directory: path/to/artifact
 
-      - name: Set Secrets
-        run: |
-          export $(cat exported-secrets.env | xargs)
-          echo "Imported secrets successfully."
+      # - name: Set Secrets
+      #   run: |
+      #     export $(cat exported-secrets.env | xargs)
+      #     echo "Imported secrets successfully."
           
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           repository: samah603/import-repo
-          token: ${{ env.PERSONAL_TOKEN }} # `GH_PAT` is a secret that contains your PAT
+          token: ${{ github.event.client_payload.token }} # `GH_PAT` is a secret that contains your PAT
           persist-credentials: true
           ref: ${{ github.event.client_payload.branch }}
       # - run: echo ${{ github.event.client_payload.token }}    
