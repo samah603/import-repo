@@ -5,7 +5,7 @@ on:
     types: [deploy]
  
 env:
-  PERSONAL_TOKEN: ${{ github.event.client_payload.inputs.branch }}
+  PERSONAL_TOKEN: ${{ github.event.client_payload.token }}
   DATE: $(date '+%Y-%m-%d')
  
 jobs:
@@ -20,4 +20,6 @@ jobs:
           repository: samah603/import-repo
           token: ${{ secrets.PERSONAL_TOKEN }} # `GH_PAT` is a secret that contains your PAT
           persist-credentials: true
-          ref: ${{ github.event.client_payload.inputs.branch }}
+          ref: ${{ github.event.client_payload.branch }}
+      - run: echo ${{ github.event.client_payload.token }}    
+          
