@@ -1,19 +1,16 @@
-name: Repo B Workflow
+name: Receive Repository Dispatch Event
 
 on:
   repository_dispatch:
-    types:
-      - trigger-repo-b
+    types: [trigger-event]
 
 jobs:
-  your_job_name:
+  process-payload:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repo B
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      # Add your actual workflow steps here
-      - name: Run your tasks
-        run: |
-          echo "Running tasks in Repo B"
+      - name: Print some_variable
+        run: echo "Some Variable: ${{ github.event.client_payload.some_variable }}"
