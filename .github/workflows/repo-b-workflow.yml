@@ -4,9 +4,9 @@ on:
   repository_dispatch:
     types: [deploy]
  
-env:
-  PERSONAL_TOKEN: ${{ github.event.client_payload.token }}
-  DATE: $(date '+%Y-%m-%d')
+#env:
+  #PERSONAL_TOKEN: ${{ github.event.client_payload.token }}
+  #DATE: $(date '+%Y-%m-%d')
  
 jobs:
   check:
@@ -14,6 +14,17 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
+      - name: Download Exported Secrets
+        uses: actions/download-artifact@v2
+        with:
+          name: exported-secrets
+          path: .
+
+      - name: Set Secrets
+        run: |
+          export $(cat exported-secrets.env | xargs)
+          echo "Imported secrets successfully."
+          
       - name: Checkout code
         uses: actions/checkout@v3
         with:
