@@ -1,0 +1,19 @@
+name: Repo B Workflow
+
+on:
+  repository_dispatch:
+    types:
+      - trigger-repo-b
+
+jobs:
+  your_job_name:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo B
+        uses: actions/checkout@v2
+
+      # Add your actual workflow steps here
+      - name: Run your tasks
+        run: |
+          echo "Running tasks in Repo B"
