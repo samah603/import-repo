@@ -5,7 +5,7 @@ on:
     types: [deploy]
  
 env:
-  PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
+  PERSONAL_TOKEN: ${{ github.event.client_payload.inputs.branch }}
   DATE: $(date '+%Y-%m-%d')
  
 jobs:
