@@ -10,7 +10,7 @@ env:
  
 jobs:
   check:
-    name: check-build/gomo-${{github.event.client_payload.inputs.repo}}
+    name: samah603/import-repo
     runs-on: ubuntu-latest
  
     steps:
