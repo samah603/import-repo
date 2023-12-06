@@ -1,4 +1,4 @@
-name: IOT - BE Service Deployment
+name: Deployment
  
 on:
   repository_dispatch:
