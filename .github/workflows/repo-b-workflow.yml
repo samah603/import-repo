@@ -1,16 +1,23 @@
-name: Receive Repository Dispatch Event
-
+name: IOT - BE Service Deployment
+ 
 on:
   repository_dispatch:
-    types: [trigger-event]
-
+    types: [deploy]
+ 
+env:
+  PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
+  DATE: $(date '+%Y-%m-%d')
+ 
 jobs:
-  process-payload:
+  check:
+    name: check-build/gomo-${{github.event.client_payload.inputs.repo}}
     runs-on: ubuntu-latest
-
+ 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Print some_variable
-        run: echo "Some Variable: ${{ github.event.client_payload.some_variable }}"
+        uses: actions/checkout@v3
+        with:
+          repository: samah603/import-repo
+          token: ${{ secrets.PERSONAL_TOKEN }} # `GH_PAT` is a secret that contains your PAT
+          persist-credentials: true
+          ref: ${{ github.event.client_payload.inputs.branch }}
