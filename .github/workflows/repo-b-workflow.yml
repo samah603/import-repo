@@ -1,0 +1,23 @@
+name: Deployment
+ 
+on:
+  repository_dispatch:
+    types: [deploy]
+ 
+env:
+  PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
+  DATE: $(date '+%Y-%m-%d')
+ 
+jobs:
+  check:
+    name: samah603/import-repo
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: samah603/import-repo
+          token: ${{ secrets.PERSONAL_TOKEN }} # `GH_PAT` is a secret that contains your PAT
+          persist-credentials: true
+          ref: ${{ github.event.client_payload.inputs.branch }}
