@@ -9,8 +9,8 @@ on:
   #DATE: $(date '+%Y-%m-%d')
  
 jobs:
-  check:
-    name: samah603/import-repo
+  build:
+    name: Build
     runs-on: ubuntu-latest
  
     steps:
