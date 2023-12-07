@@ -2,7 +2,7 @@ name: Deployment
  
 on:
   repository_dispatch:
-    types: [deploy]
+    types: [ deploy ]
  
 #env:
   #PERSONAL_TOKEN: ${{ github.event.client_payload.token }}
@@ -14,15 +14,18 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: Download Exported Secrets
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: exported-secrets
           path: path/to/artifact
           
-      # - name: Display structure of downloaded files
-      #   run: ls -R
-      #   working-directory: path/to/artifact
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: path/to/artifact
 
       # - name: Set Secrets
       #   run: |
