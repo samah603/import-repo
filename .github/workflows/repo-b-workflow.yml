@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
  
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v3
 
       - name: Decode Secret
         run: |
@@ -23,6 +21,9 @@ jobs:
           echo ${{ github.event.client_payload.token }} | base64 -d > path/to/artifact/exported-secrets.env
           PERSONAL_TOKEN=$(cat path/to/artifact/exported-secrets.env)
           echo "PERSONAL_TOKEN=${PERSONAL_TOKEN}" >> $GITHUB_ENV
+
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Checkout code
         uses: actions/checkout@v3
