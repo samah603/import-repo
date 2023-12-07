@@ -4,9 +4,9 @@ on:
   repository_dispatch:
     types: [ deploy ]
  
-#env:
-  #PERSONAL_TOKEN: ${{ github.event.client_payload.token }}
-  #DATE: $(date '+%Y-%m-%d')
+env:
+  # PERSONAL_TOKEN: ${{ github.event.client_payload.token }}
+  DATE: $(date '+%Y-%m-%d')
  
 jobs:
   build:
@@ -22,20 +22,21 @@ jobs:
       #     PERSONAL_TOKEN=$(cat path/to/artifact/exported-secrets.env)
       #     echo "PERSONAL_TOKEN=${PERSONAL_TOKEN}" >> $GITHUB_ENV
 
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
       - name: Decrypt secret and set as environment variable
         run: |
-          DECRYPTED_SECRET=$(echo "${{ github.event.client_payload.token }}" | base64 --decode | actions/secrets/decrypt)
-          echo "PERSONAL_TOKEN=${DECRYPTED_SECRET}" > $GITHUB_ENV
+          echo ${{ github.event.client_payload.token }} | base64 -e >> /tmp/secrets.env
+          TOKEN=$(cat /tmp/secrets.env)
+          echo "PERSONAL_TOKEN=${TOKEN}" >> $GITHUB_ENV
+
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           repository: samah603/import-repo
           token: ${{ env.PERSONAL_TOKEN }} # `GH_PAT` is a secret that contains your PAT
-          persist-credentials: true
+          # persist-credentials: true
           ref: ${{ github.event.client_payload.branch }}
       # - run: echo ${{ github.event.client_payload.token }}    
           
