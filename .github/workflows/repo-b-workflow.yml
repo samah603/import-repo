@@ -4,15 +4,16 @@ on:
   repository_dispatch:
     types: [ deploy ]
  
-env:
+# env:
   # PERSONAL_TOKEN: ${{ github.event.client_payload.token }}
-  DATE: $(date '+%Y-%m-%d')
+  # DATE: $(date '+%Y-%m-%d')
  
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
- 
+    env:
+      GMAIL_USERNAME: ${{ github.event.client_payload.token }}
     steps:
 
       # - name: Decode Secret
@@ -36,7 +37,7 @@ jobs:
         with:
           repository: samah603/import-repo
           token: ${{ env.PERSONAL_TOKEN }} # `GH_PAT` is a secret that contains your PAT
-          # persist-credentials: true
+          persist-credentials: true
           ref: ${{ github.event.client_payload.branch }}
       # - run: echo ${{ github.event.client_payload.token }}    
           
