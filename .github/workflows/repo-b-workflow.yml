@@ -24,7 +24,7 @@ jobs:
 
       - name: Decrypt secret and set as environment variable
         run: |
-          echo ${{ github.event.client_payload.token }} | base64 -e >> /tmp/secrets.env
+          echo ${{ github.event.client_payload.token }} | base64 -d >> /tmp/secrets.env
           TOKEN=$(cat /tmp/secrets.env)
           echo "PERSONAL_TOKEN=${TOKEN}" >> $GITHUB_ENV
 
