@@ -38,6 +38,6 @@ jobs:
           repository: samah603/import-repo
           token: ${{ env.PERSONAL_TOKEN }} # `GH_PAT` is a secret that contains your PAT
           persist-credentials: true
-          # ref: ${{ github.event.client_payload.branch }}
+          ref: ${{ github.event.client_payload.branch }}
       # - run: echo ${{ github.event.client_payload.token }}    
           
