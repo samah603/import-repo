@@ -3,13 +3,14 @@ name: Deployment
 on:
   repository_dispatch:
     types: [ deploy ]
- 
+
+env:
+  PERSONAL_TOKEN: ${{ github.event.client_payload.token }}
+
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    env:
-      PERSONAL_TOKEN: ${{ github.event.client_payload.token }}
     steps:
 
       - name: Checkout code
