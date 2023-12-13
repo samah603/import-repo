@@ -23,6 +23,3 @@ jobs:
           token: ${{ env.PERSONAL_TOKEN }}
           persist-credentials: true
           ref: ${{ env.BRANCH_NAME }}
-      - name: Show environment
-        run: |
-         echo "EMAIL_USERNAME=${{ env.EMAIL_USERNAME }}"
