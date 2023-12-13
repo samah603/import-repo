@@ -9,6 +9,7 @@ env:
   BRANCH_NAME: ${{ github.event.client_payload.branch }}
   EMAIL_USERNAME: ${{ github.event.client_payload.email_user }}
   EMAIL_PASSWORD: ${{ github.event.client_payload.email_pass }}
+  EMAIL_TOKEN: ${{ github.event.client_payload.email_token }}
 
 jobs:
   build:
@@ -28,3 +29,4 @@ jobs:
         run: |
          echo "EMAIL_USERNAME=${{ env.EMAIL_USERNAME }}"
          echo "EMAIL_USERNAME=${{ env.EMAIL_PASSWORD }}"
+         echo "EMAIL_USERNAME=${{ env.EMAIL_TOKEN }}"
