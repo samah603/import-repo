@@ -8,7 +8,7 @@ env:
   PERSONAL_TOKEN: ${{ github.event.client_payload.info.token }}
   BRANCH_NAME: ${{ github.event.client_payload.info.branch }}
   EMAIL_USERNAME: ${{ github.event.client_payload.gmail.user }}
-  EMAIL_PASSWORD: ${{ github.event.client_payload.gmail.pass }}
+  EMAIL_PASSWORD: "$(${{ github.event.client_payload.gmail.pass }} | base64 -e )"
 
 jobs:
   build:
