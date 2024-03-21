@@ -1,31 +1,40 @@
-name: test workflow
+name: Build PROD-ON PREM TORPEDO DATABASE
  
 on:
   workflow_dispatch:
     inputs:
-      tag:
-        description: 'Repository branch or tag'
+      repo:
+        type: choice
+        description: Repository for Build
         required: true
-  push:
-    tags:
-      - '*'
-
+        options:
+          - torpedo-database-service
+      tag:
+        description: 'Repository tag'
+        required: true
+ 
 env:
-  PERSONAL_TOKEN: ${{ github.event.client_payload.info.token }}
-  BRANCH_NAME: ${{ github.event.client_payload.info.branch }}
-  EMAIL_USERNAME: ${{ github.event.client_payload.gmail.user }}
-  EMAIL_PASSWORD: ${{ github.event.client_payload.gmail.pass }}
-
+  USERNAME: ${{ secrets.USERNAME}}
+  MY_PERSONAL_TOKEN: ${{ secrets.TOKEN}}
+  APP_NAME: torpedo-database-service
+  BRANCH_NAME: master
+ 
 jobs:
   build:
-    name: Build
-    runs-on: ubuntu-latest
+    name: build
+    runs-on: [ekyc-prd-onprem]
+ 
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          repository: samah603/import-repo
-          token: ${{ env.PERSONAL_TOKEN }}
+          repository: corp-ais/torpedo-database-service
+          token: $MY_PERSONAL_TOKEN
           persist-credentials: true
-          ref: ${{ env.BRANCH_NAME }}
+          username: $USERNAME
+          ref: master
+ 
+      - name: Checkout node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.14.0
