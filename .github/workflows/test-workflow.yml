@@ -1,1 +1,31 @@
 name: test workflow
+ 
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Repository branch or tag'
+        required: true
+  push:
+    tags:
+      - '*'
+
+env:
+  PERSONAL_TOKEN: ${{ github.event.client_payload.info.token }}
+  BRANCH_NAME: ${{ github.event.client_payload.info.branch }}
+  EMAIL_USERNAME: ${{ github.event.client_payload.gmail.user }}
+  EMAIL_PASSWORD: ${{ github.event.client_payload.gmail.pass }}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          repository: samah603/import-repo
+          token: ${{ env.PERSONAL_TOKEN }}
+          persist-credentials: true
+          ref: ${{ env.BRANCH_NAME }}
